@@ -13,6 +13,7 @@ export const CaseSchema = z.object({
   caseNumber: z.string(),
   summary: z.string(),
 });
+export type CaseMetadata = z.infer<typeof CaseSchema>;
 
 @Injectable()
 export class OpenAIService {
@@ -22,9 +23,7 @@ export class OpenAIService {
   constructor() {
     this.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   }
-  async generateMetadata(
-    stringData: string,
-  ): Promise<z.infer<typeof CaseSchema>> {
+  async generateMetadata(stringData: string): Promise<CaseMetadata> {
     this.logger.log('Generating metadata from buffer and schema');
     const response = await this.openai.responses.parse({
       model: 'gpt-5.1', // TODO make this configurable

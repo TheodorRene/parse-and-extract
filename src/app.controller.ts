@@ -3,11 +3,13 @@ import {
   Get,
   Logger,
   Post,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { type CaseMetadata } from './openai.service';
 
 @Controller()
 export class AppController {
@@ -28,4 +30,20 @@ export class AppController {
     await this.appService.handleUploadedFile(file);
     return `File ${file.originalname} uploaded successfully.`;
   }
+
+  //lets create a controller that fetches a specific document based on case metadata
+  //lets allow any query parameters to be passed in and use them to filter the documents
+  @Get('documents')
+  async getDocuments(
+    @Query() query: Optional<CaseMetadata>,
+  ): Promise<string[]> {
+    this.logger.log(
+      'Fetching documents with query parameters: ' + JSON.stringify(query),
+    );
+    const documentIds = await this.appService.getDocuments(query);
+    return documentIds;
+  }
 }
+export type Optional<T> = {
+  [K in keyof T]?: T[K];
+};

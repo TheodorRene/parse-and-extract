@@ -20,6 +20,7 @@ model Document {
   title     String
   content   String   // this will store the cleaned text content
   type      String   // e.g., "pdf" or "html"
+  case      Case?
   createdAt DateTime @default(now())
 }
 
@@ -33,4 +34,6 @@ model Case {
   caseNumber      String
   summary         String
   createdAt       DateTime @default(now())
+  document        Document @relation(fields: [documentId], references: [id])
+  documentId      Int @unique
 }

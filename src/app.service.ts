@@ -1,7 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { OpenAIService } from './openai.service';
+import { CaseMetadata, OpenAIService } from './openai.service';
 import { readHtmlFromBuffer, readPdfFromBuffer } from './utils/parsefile';
+import { Optional } from './app.controller';
 
 @Injectable()
 export class AppService {
@@ -27,6 +28,18 @@ export class AppService {
       throw new Error(`Unsupported file type: ${mimetype}`);
     }
   }
+  async getDocuments(filter: Optional<CaseMetadata>): Promise<string[]> {
+    this.logger.log(
+      'Fetching documents with filter parameters: ' + JSON.stringify(filter),
+    );
+    const x = await this.prisma.case.findMany({
+      where: { ...filter },
+    });
+    if (x.length === 0) {
+      this.logger.log('No documents found matching filter');
+    }
+    return x.map((c) => String(c.documentId));
+  }
 
   async handleUploadedFile(file: Express.Multer.File): Promise<void> {
     this.logger.log(
@@ -37,14 +50,6 @@ export class AppService {
 
     // We dont need to await these individually, they are all not dependent on each other
     // TODO: do in parallel
-    await this.prisma.document.create({
-      data: {
-        title: document.title,
-        content,
-        type: file.mimetype,
-      },
-    });
-    // TODO: add relation between document and case
     const createCase = await this.prisma.case.create({
       data: {
         // you could spread, but i prefer explicitness here
@@ -55,6 +60,16 @@ export class AppService {
         court: document.court,
         caseNumber: document.caseNumber,
         summary: document.summary,
+        document: {
+          create: {
+            title: document.title,
+            content,
+            /** We are currently storing the text content of the document
+             * we should rather store the file in a blob storage and save the link here
+             */
+            type: file.mimetype,
+          },
+        },
       },
     });
 

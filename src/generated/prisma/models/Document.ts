@@ -216,6 +216,7 @@ export type DocumentWhereInput = {
   content?: Prisma.StringFilter<"Document"> | string
   type?: Prisma.StringFilter<"Document"> | string
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
+  case?: Prisma.XOR<Prisma.CaseNullableScalarRelationFilter, Prisma.CaseWhereInput> | null
 }
 
 export type DocumentOrderByWithRelationInput = {
@@ -224,6 +225,7 @@ export type DocumentOrderByWithRelationInput = {
   content?: Prisma.SortOrder
   type?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  case?: Prisma.CaseOrderByWithRelationInput
 }
 
 export type DocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -235,6 +237,7 @@ export type DocumentWhereUniqueInput = Prisma.AtLeast<{
   content?: Prisma.StringFilter<"Document"> | string
   type?: Prisma.StringFilter<"Document"> | string
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
+  case?: Prisma.XOR<Prisma.CaseNullableScalarRelationFilter, Prisma.CaseWhereInput> | null
 }, "id">
 
 export type DocumentOrderByWithAggregationInput = {
@@ -266,6 +269,7 @@ export type DocumentCreateInput = {
   content: string
   type: string
   createdAt?: Date | string
+  case?: Prisma.CaseCreateNestedOneWithoutDocumentInput
 }
 
 export type DocumentUncheckedCreateInput = {
@@ -274,6 +278,7 @@ export type DocumentUncheckedCreateInput = {
   content: string
   type: string
   createdAt?: Date | string
+  case?: Prisma.CaseUncheckedCreateNestedOneWithoutDocumentInput
 }
 
 export type DocumentUpdateInput = {
@@ -281,6 +286,7 @@ export type DocumentUpdateInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  case?: Prisma.CaseUpdateOneWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateInput = {
@@ -289,6 +295,7 @@ export type DocumentUncheckedUpdateInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  case?: Prisma.CaseUncheckedUpdateOneWithoutDocumentNestedInput
 }
 
 export type DocumentCreateManyInput = {
@@ -346,6 +353,11 @@ export type DocumentSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
+export type DocumentScalarRelationFilter = {
+  is?: Prisma.DocumentWhereInput
+  isNot?: Prisma.DocumentWhereInput
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -362,6 +374,66 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type DocumentCreateNestedOneWithoutCaseInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutCaseInput, Prisma.DocumentUncheckedCreateWithoutCaseInput>
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutCaseInput
+  connect?: Prisma.DocumentWhereUniqueInput
+}
+
+export type DocumentUpdateOneRequiredWithoutCaseNestedInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutCaseInput, Prisma.DocumentUncheckedCreateWithoutCaseInput>
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutCaseInput
+  upsert?: Prisma.DocumentUpsertWithoutCaseInput
+  connect?: Prisma.DocumentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DocumentUpdateToOneWithWhereWithoutCaseInput, Prisma.DocumentUpdateWithoutCaseInput>, Prisma.DocumentUncheckedUpdateWithoutCaseInput>
+}
+
+export type DocumentCreateWithoutCaseInput = {
+  title: string
+  content: string
+  type: string
+  createdAt?: Date | string
+}
+
+export type DocumentUncheckedCreateWithoutCaseInput = {
+  id?: number
+  title: string
+  content: string
+  type: string
+  createdAt?: Date | string
+}
+
+export type DocumentCreateOrConnectWithoutCaseInput = {
+  where: Prisma.DocumentWhereUniqueInput
+  create: Prisma.XOR<Prisma.DocumentCreateWithoutCaseInput, Prisma.DocumentUncheckedCreateWithoutCaseInput>
+}
+
+export type DocumentUpsertWithoutCaseInput = {
+  update: Prisma.XOR<Prisma.DocumentUpdateWithoutCaseInput, Prisma.DocumentUncheckedUpdateWithoutCaseInput>
+  create: Prisma.XOR<Prisma.DocumentCreateWithoutCaseInput, Prisma.DocumentUncheckedCreateWithoutCaseInput>
+  where?: Prisma.DocumentWhereInput
+}
+
+export type DocumentUpdateToOneWithWhereWithoutCaseInput = {
+  where?: Prisma.DocumentWhereInput
+  data: Prisma.XOR<Prisma.DocumentUpdateWithoutCaseInput, Prisma.DocumentUncheckedUpdateWithoutCaseInput>
+}
+
+export type DocumentUpdateWithoutCaseInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type DocumentUncheckedUpdateWithoutCaseInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type DocumentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -370,6 +442,7 @@ export type DocumentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   content?: boolean
   type?: boolean
   createdAt?: boolean
+  case?: boolean | Prisma.Document$caseArgs<ExtArgs>
 }, ExtArgs["result"]["document"]>
 
 export type DocumentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -397,10 +470,17 @@ export type DocumentSelectScalar = {
 }
 
 export type DocumentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "type" | "createdAt", ExtArgs["result"]["document"]>
+export type DocumentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  case?: boolean | Prisma.Document$caseArgs<ExtArgs>
+}
+export type DocumentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type DocumentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $DocumentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Document"
-  objects: {}
+  objects: {
+    case: Prisma.$CasePayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     title: string
@@ -801,6 +881,7 @@ readonly fields: DocumentFieldRefs;
  */
 export interface Prisma__DocumentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  case<T extends Prisma.Document$caseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Document$caseArgs<ExtArgs>>): Prisma.Prisma__CaseClient<runtime.Types.Result.GetResult<Prisma.$CasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -852,6 +933,10 @@ export type DocumentFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   omit?: Prisma.DocumentOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentInclude<ExtArgs> | null
+  /**
    * Filter, which Document to fetch.
    */
   where: Prisma.DocumentWhereUniqueInput
@@ -870,6 +955,10 @@ export type DocumentFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.DocumentOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentInclude<ExtArgs> | null
+  /**
    * Filter, which Document to fetch.
    */
   where: Prisma.DocumentWhereUniqueInput
@@ -887,6 +976,10 @@ export type DocumentFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Document
    */
   omit?: Prisma.DocumentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentInclude<ExtArgs> | null
   /**
    * Filter, which Document to fetch.
    */
@@ -936,6 +1029,10 @@ export type DocumentFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.DocumentOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentInclude<ExtArgs> | null
+  /**
    * Filter, which Document to fetch.
    */
   where?: Prisma.DocumentWhereInput
@@ -984,6 +1081,10 @@ export type DocumentFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.DocumentOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentInclude<ExtArgs> | null
+  /**
    * Filter, which Documents to fetch.
    */
   where?: Prisma.DocumentWhereInput
@@ -1026,6 +1127,10 @@ export type DocumentCreateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Document
    */
   omit?: Prisma.DocumentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentInclude<ExtArgs> | null
   /**
    * The data needed to create a Document.
    */
@@ -1074,6 +1179,10 @@ export type DocumentUpdateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Document
    */
   omit?: Prisma.DocumentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentInclude<ExtArgs> | null
   /**
    * The data needed to update a Document.
    */
@@ -1141,6 +1250,10 @@ export type DocumentUpsertArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.DocumentOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentInclude<ExtArgs> | null
+  /**
    * The filter to search for the Document to update in case it exists.
    */
   where: Prisma.DocumentWhereUniqueInput
@@ -1167,6 +1280,10 @@ export type DocumentDeleteArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.DocumentOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentInclude<ExtArgs> | null
+  /**
    * Filter which Document to delete.
    */
   where: Prisma.DocumentWhereUniqueInput
@@ -1187,6 +1304,25 @@ export type DocumentDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
+ * Document.case
+ */
+export type Document$caseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Case
+   */
+  select?: Prisma.CaseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Case
+   */
+  omit?: Prisma.CaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaseInclude<ExtArgs> | null
+  where?: Prisma.CaseWhereInput
+}
+
+/**
  * Document without action
  */
 export type DocumentDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1198,4 +1334,8 @@ export type DocumentDefaultArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Document
    */
   omit?: Prisma.DocumentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentInclude<ExtArgs> | null
 }

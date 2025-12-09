@@ -28,10 +28,12 @@ export type AggregateCase = {
 
 export type CaseAvgAggregateOutputType = {
   id: number | null
+  documentId: number | null
 }
 
 export type CaseSumAggregateOutputType = {
   id: number | null
+  documentId: number | null
 }
 
 export type CaseMinAggregateOutputType = {
@@ -44,6 +46,7 @@ export type CaseMinAggregateOutputType = {
   caseNumber: string | null
   summary: string | null
   createdAt: Date | null
+  documentId: number | null
 }
 
 export type CaseMaxAggregateOutputType = {
@@ -56,6 +59,7 @@ export type CaseMaxAggregateOutputType = {
   caseNumber: string | null
   summary: string | null
   createdAt: Date | null
+  documentId: number | null
 }
 
 export type CaseCountAggregateOutputType = {
@@ -68,16 +72,19 @@ export type CaseCountAggregateOutputType = {
   caseNumber: number
   summary: number
   createdAt: number
+  documentId: number
   _all: number
 }
 
 
 export type CaseAvgAggregateInputType = {
   id?: true
+  documentId?: true
 }
 
 export type CaseSumAggregateInputType = {
   id?: true
+  documentId?: true
 }
 
 export type CaseMinAggregateInputType = {
@@ -90,6 +97,7 @@ export type CaseMinAggregateInputType = {
   caseNumber?: true
   summary?: true
   createdAt?: true
+  documentId?: true
 }
 
 export type CaseMaxAggregateInputType = {
@@ -102,6 +110,7 @@ export type CaseMaxAggregateInputType = {
   caseNumber?: true
   summary?: true
   createdAt?: true
+  documentId?: true
 }
 
 export type CaseCountAggregateInputType = {
@@ -114,6 +123,7 @@ export type CaseCountAggregateInputType = {
   caseNumber?: true
   summary?: true
   createdAt?: true
+  documentId?: true
   _all?: true
 }
 
@@ -213,6 +223,7 @@ export type CaseGroupByOutputType = {
   caseNumber: string
   summary: string
   createdAt: Date
+  documentId: number
   _count: CaseCountAggregateOutputType | null
   _avg: CaseAvgAggregateOutputType | null
   _sum: CaseSumAggregateOutputType | null
@@ -248,6 +259,8 @@ export type CaseWhereInput = {
   caseNumber?: Prisma.StringFilter<"Case"> | string
   summary?: Prisma.StringFilter<"Case"> | string
   createdAt?: Prisma.DateTimeFilter<"Case"> | Date | string
+  documentId?: Prisma.IntFilter<"Case"> | number
+  document?: Prisma.XOR<Prisma.DocumentScalarRelationFilter, Prisma.DocumentWhereInput>
 }
 
 export type CaseOrderByWithRelationInput = {
@@ -260,10 +273,13 @@ export type CaseOrderByWithRelationInput = {
   caseNumber?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  documentId?: Prisma.SortOrder
+  document?: Prisma.DocumentOrderByWithRelationInput
 }
 
 export type CaseWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  documentId?: number
   AND?: Prisma.CaseWhereInput | Prisma.CaseWhereInput[]
   OR?: Prisma.CaseWhereInput[]
   NOT?: Prisma.CaseWhereInput | Prisma.CaseWhereInput[]
@@ -275,7 +291,8 @@ export type CaseWhereUniqueInput = Prisma.AtLeast<{
   caseNumber?: Prisma.StringFilter<"Case"> | string
   summary?: Prisma.StringFilter<"Case"> | string
   createdAt?: Prisma.DateTimeFilter<"Case"> | Date | string
-}, "id">
+  document?: Prisma.XOR<Prisma.DocumentScalarRelationFilter, Prisma.DocumentWhereInput>
+}, "id" | "documentId">
 
 export type CaseOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -287,6 +304,7 @@ export type CaseOrderByWithAggregationInput = {
   caseNumber?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  documentId?: Prisma.SortOrder
   _count?: Prisma.CaseCountOrderByAggregateInput
   _avg?: Prisma.CaseAvgOrderByAggregateInput
   _max?: Prisma.CaseMaxOrderByAggregateInput
@@ -307,6 +325,7 @@ export type CaseScalarWhereWithAggregatesInput = {
   caseNumber?: Prisma.StringWithAggregatesFilter<"Case"> | string
   summary?: Prisma.StringWithAggregatesFilter<"Case"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Case"> | Date | string
+  documentId?: Prisma.IntWithAggregatesFilter<"Case"> | number
 }
 
 export type CaseCreateInput = {
@@ -318,6 +337,7 @@ export type CaseCreateInput = {
   caseNumber: string
   summary: string
   createdAt?: Date | string
+  document: Prisma.DocumentCreateNestedOneWithoutCaseInput
 }
 
 export type CaseUncheckedCreateInput = {
@@ -330,6 +350,7 @@ export type CaseUncheckedCreateInput = {
   caseNumber: string
   summary: string
   createdAt?: Date | string
+  documentId: number
 }
 
 export type CaseUpdateInput = {
@@ -341,6 +362,7 @@ export type CaseUpdateInput = {
   caseNumber?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  document?: Prisma.DocumentUpdateOneRequiredWithoutCaseNestedInput
 }
 
 export type CaseUncheckedUpdateInput = {
@@ -353,6 +375,7 @@ export type CaseUncheckedUpdateInput = {
   caseNumber?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  documentId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type CaseCreateManyInput = {
@@ -365,6 +388,7 @@ export type CaseCreateManyInput = {
   caseNumber: string
   summary: string
   createdAt?: Date | string
+  documentId: number
 }
 
 export type CaseUpdateManyMutationInput = {
@@ -388,6 +412,12 @@ export type CaseUncheckedUpdateManyInput = {
   caseNumber?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  documentId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type CaseNullableScalarRelationFilter = {
+  is?: Prisma.CaseWhereInput | null
+  isNot?: Prisma.CaseWhereInput | null
 }
 
 export type CaseCountOrderByAggregateInput = {
@@ -400,10 +430,12 @@ export type CaseCountOrderByAggregateInput = {
   caseNumber?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  documentId?: Prisma.SortOrder
 }
 
 export type CaseAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  documentId?: Prisma.SortOrder
 }
 
 export type CaseMaxOrderByAggregateInput = {
@@ -416,6 +448,7 @@ export type CaseMaxOrderByAggregateInput = {
   caseNumber?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  documentId?: Prisma.SortOrder
 }
 
 export type CaseMinOrderByAggregateInput = {
@@ -428,10 +461,106 @@ export type CaseMinOrderByAggregateInput = {
   caseNumber?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  documentId?: Prisma.SortOrder
 }
 
 export type CaseSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  documentId?: Prisma.SortOrder
+}
+
+export type CaseCreateNestedOneWithoutDocumentInput = {
+  create?: Prisma.XOR<Prisma.CaseCreateWithoutDocumentInput, Prisma.CaseUncheckedCreateWithoutDocumentInput>
+  connectOrCreate?: Prisma.CaseCreateOrConnectWithoutDocumentInput
+  connect?: Prisma.CaseWhereUniqueInput
+}
+
+export type CaseUncheckedCreateNestedOneWithoutDocumentInput = {
+  create?: Prisma.XOR<Prisma.CaseCreateWithoutDocumentInput, Prisma.CaseUncheckedCreateWithoutDocumentInput>
+  connectOrCreate?: Prisma.CaseCreateOrConnectWithoutDocumentInput
+  connect?: Prisma.CaseWhereUniqueInput
+}
+
+export type CaseUpdateOneWithoutDocumentNestedInput = {
+  create?: Prisma.XOR<Prisma.CaseCreateWithoutDocumentInput, Prisma.CaseUncheckedCreateWithoutDocumentInput>
+  connectOrCreate?: Prisma.CaseCreateOrConnectWithoutDocumentInput
+  upsert?: Prisma.CaseUpsertWithoutDocumentInput
+  disconnect?: Prisma.CaseWhereInput | boolean
+  delete?: Prisma.CaseWhereInput | boolean
+  connect?: Prisma.CaseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CaseUpdateToOneWithWhereWithoutDocumentInput, Prisma.CaseUpdateWithoutDocumentInput>, Prisma.CaseUncheckedUpdateWithoutDocumentInput>
+}
+
+export type CaseUncheckedUpdateOneWithoutDocumentNestedInput = {
+  create?: Prisma.XOR<Prisma.CaseCreateWithoutDocumentInput, Prisma.CaseUncheckedCreateWithoutDocumentInput>
+  connectOrCreate?: Prisma.CaseCreateOrConnectWithoutDocumentInput
+  upsert?: Prisma.CaseUpsertWithoutDocumentInput
+  disconnect?: Prisma.CaseWhereInput | boolean
+  delete?: Prisma.CaseWhereInput | boolean
+  connect?: Prisma.CaseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CaseUpdateToOneWithWhereWithoutDocumentInput, Prisma.CaseUpdateWithoutDocumentInput>, Prisma.CaseUncheckedUpdateWithoutDocumentInput>
+}
+
+export type CaseCreateWithoutDocumentInput = {
+  title: string
+  decisionType: string
+  dateOfDecision: string
+  office: string
+  court: string
+  caseNumber: string
+  summary: string
+  createdAt?: Date | string
+}
+
+export type CaseUncheckedCreateWithoutDocumentInput = {
+  id?: number
+  title: string
+  decisionType: string
+  dateOfDecision: string
+  office: string
+  court: string
+  caseNumber: string
+  summary: string
+  createdAt?: Date | string
+}
+
+export type CaseCreateOrConnectWithoutDocumentInput = {
+  where: Prisma.CaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.CaseCreateWithoutDocumentInput, Prisma.CaseUncheckedCreateWithoutDocumentInput>
+}
+
+export type CaseUpsertWithoutDocumentInput = {
+  update: Prisma.XOR<Prisma.CaseUpdateWithoutDocumentInput, Prisma.CaseUncheckedUpdateWithoutDocumentInput>
+  create: Prisma.XOR<Prisma.CaseCreateWithoutDocumentInput, Prisma.CaseUncheckedCreateWithoutDocumentInput>
+  where?: Prisma.CaseWhereInput
+}
+
+export type CaseUpdateToOneWithWhereWithoutDocumentInput = {
+  where?: Prisma.CaseWhereInput
+  data: Prisma.XOR<Prisma.CaseUpdateWithoutDocumentInput, Prisma.CaseUncheckedUpdateWithoutDocumentInput>
+}
+
+export type CaseUpdateWithoutDocumentInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  decisionType?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfDecision?: Prisma.StringFieldUpdateOperationsInput | string
+  office?: Prisma.StringFieldUpdateOperationsInput | string
+  court?: Prisma.StringFieldUpdateOperationsInput | string
+  caseNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CaseUncheckedUpdateWithoutDocumentInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  decisionType?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfDecision?: Prisma.StringFieldUpdateOperationsInput | string
+  office?: Prisma.StringFieldUpdateOperationsInput | string
+  court?: Prisma.StringFieldUpdateOperationsInput | string
+  caseNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -446,6 +575,8 @@ export type CaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   caseNumber?: boolean
   summary?: boolean
   createdAt?: boolean
+  documentId?: boolean
+  document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["case"]>
 
 export type CaseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -458,6 +589,8 @@ export type CaseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   caseNumber?: boolean
   summary?: boolean
   createdAt?: boolean
+  documentId?: boolean
+  document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["case"]>
 
 export type CaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -470,6 +603,8 @@ export type CaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   caseNumber?: boolean
   summary?: boolean
   createdAt?: boolean
+  documentId?: boolean
+  document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["case"]>
 
 export type CaseSelectScalar = {
@@ -482,13 +617,25 @@ export type CaseSelectScalar = {
   caseNumber?: boolean
   summary?: boolean
   createdAt?: boolean
+  documentId?: boolean
 }
 
-export type CaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "decisionType" | "dateOfDecision" | "office" | "court" | "caseNumber" | "summary" | "createdAt", ExtArgs["result"]["case"]>
+export type CaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "decisionType" | "dateOfDecision" | "office" | "court" | "caseNumber" | "summary" | "createdAt" | "documentId", ExtArgs["result"]["case"]>
+export type CaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+}
+export type CaseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+}
+export type CaseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+}
 
 export type $CasePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Case"
-  objects: {}
+  objects: {
+    document: Prisma.$DocumentPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     title: string
@@ -499,6 +646,7 @@ export type $CasePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     caseNumber: string
     summary: string
     createdAt: Date
+    documentId: number
   }, ExtArgs["result"]["case"]>
   composites: {}
 }
@@ -893,6 +1041,7 @@ readonly fields: CaseFieldRefs;
  */
 export interface Prisma__CaseClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  document<T extends Prisma.DocumentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DocumentDefaultArgs<ExtArgs>>): Prisma.Prisma__DocumentClient<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -931,6 +1080,7 @@ export interface CaseFieldRefs {
   readonly caseNumber: Prisma.FieldRef<"Case", 'String'>
   readonly summary: Prisma.FieldRef<"Case", 'String'>
   readonly createdAt: Prisma.FieldRef<"Case", 'DateTime'>
+  readonly documentId: Prisma.FieldRef<"Case", 'Int'>
 }
     
 
@@ -947,6 +1097,10 @@ export type CaseFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Case
    */
   omit?: Prisma.CaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaseInclude<ExtArgs> | null
   /**
    * Filter, which Case to fetch.
    */
@@ -966,6 +1120,10 @@ export type CaseFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.CaseOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaseInclude<ExtArgs> | null
+  /**
    * Filter, which Case to fetch.
    */
   where: Prisma.CaseWhereUniqueInput
@@ -983,6 +1141,10 @@ export type CaseFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Case
    */
   omit?: Prisma.CaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaseInclude<ExtArgs> | null
   /**
    * Filter, which Case to fetch.
    */
@@ -1032,6 +1194,10 @@ export type CaseFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.CaseOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaseInclude<ExtArgs> | null
+  /**
    * Filter, which Case to fetch.
    */
   where?: Prisma.CaseWhereInput
@@ -1080,6 +1246,10 @@ export type CaseFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.CaseOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaseInclude<ExtArgs> | null
+  /**
    * Filter, which Cases to fetch.
    */
   where?: Prisma.CaseWhereInput
@@ -1123,6 +1293,10 @@ export type CaseCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.CaseOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaseInclude<ExtArgs> | null
+  /**
    * The data needed to create a Case.
    */
   data: Prisma.XOR<Prisma.CaseCreateInput, Prisma.CaseUncheckedCreateInput>
@@ -1156,6 +1330,10 @@ export type CaseCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    */
   data: Prisma.CaseCreateManyInput | Prisma.CaseCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaseIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1170,6 +1348,10 @@ export type CaseUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the Case
    */
   omit?: Prisma.CaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaseInclude<ExtArgs> | null
   /**
    * The data needed to update a Case.
    */
@@ -1222,6 +1404,10 @@ export type CaseUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many Cases to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaseIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1236,6 +1422,10 @@ export type CaseUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the Case
    */
   omit?: Prisma.CaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaseInclude<ExtArgs> | null
   /**
    * The filter to search for the Case to update in case it exists.
    */
@@ -1262,6 +1452,10 @@ export type CaseDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the Case
    */
   omit?: Prisma.CaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaseInclude<ExtArgs> | null
   /**
    * Filter which Case to delete.
    */
@@ -1294,4 +1488,8 @@ export type CaseDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Case
    */
   omit?: Prisma.CaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaseInclude<ExtArgs> | null
 }
