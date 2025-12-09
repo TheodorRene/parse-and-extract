@@ -384,7 +384,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  Document: 'Document'
+  Document: 'Document',
+  Case: 'Case'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -400,7 +401,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "document"
+    modelProps: "document" | "case"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -478,6 +479,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Case: {
+      payload: Prisma.$CasePayload<ExtArgs>
+      fields: Prisma.CaseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CaseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CasePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CaseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CasePayload>
+        }
+        findFirst: {
+          args: Prisma.CaseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CasePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CaseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CasePayload>
+        }
+        findMany: {
+          args: Prisma.CaseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CasePayload>[]
+        }
+        create: {
+          args: Prisma.CaseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CasePayload>
+        }
+        createMany: {
+          args: Prisma.CaseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CaseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CasePayload>[]
+        }
+        delete: {
+          args: Prisma.CaseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CasePayload>
+        }
+        update: {
+          args: Prisma.CaseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CasePayload>
+        }
+        deleteMany: {
+          args: Prisma.CaseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CaseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CaseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CasePayload>[]
+        }
+        upsert: {
+          args: Prisma.CaseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CasePayload>
+        }
+        aggregate: {
+          args: Prisma.CaseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCase>
+        }
+        groupBy: {
+          args: Prisma.CaseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CaseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CaseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CaseCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -526,6 +601,21 @@ export const DocumentScalarFieldEnum = {
 } as const
 
 export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
+
+
+export const CaseScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  decisionType: 'decisionType',
+  dateOfDecision: 'dateOfDecision',
+  office: 'office',
+  court: 'court',
+  caseNumber: 'caseNumber',
+  summary: 'summary',
+  createdAt: 'createdAt'
+} as const
+
+export type CaseScalarFieldEnum = (typeof CaseScalarFieldEnum)[keyof typeof CaseScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -701,6 +791,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   document?: Prisma.DocumentOmit
+  case?: Prisma.CaseOmit
 }
 
 /* Types for Logging */

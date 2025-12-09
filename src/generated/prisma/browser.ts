@@ -22,3 +22,8 @@ export * from './enums.js';
  * 
  */
 export type Document = Prisma.DocumentModel
+/**
+ * Model Case
+ * 
+ */
+export type Case = Prisma.CaseModel

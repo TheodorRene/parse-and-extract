@@ -42,3 +42,8 @@ export { Prisma }
  * 
  */
 export type Document = Prisma.DocumentModel
+/**
+ * Model Case
+ * 
+ */
+export type Case = Prisma.CaseModel

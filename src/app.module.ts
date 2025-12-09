@@ -3,10 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaService } from './prisma.service';
+import { OpenAIService } from './openai.service';
 
 @Module({
   imports: [ConfigModule.forRoot()],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService, PrismaService, OpenAIService],
 })
 export class AppModule {}

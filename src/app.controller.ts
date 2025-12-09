@@ -15,21 +15,16 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): Promise<string> {
-    return this.appService.getHello();
+  getHello(): string {
+    return 'Hello World!';
   }
 
-  @Get('html')
-  getHtml(): string {
-    return this.appService.getHtml();
-  }
-
+  // TODO: Error handling for file uploads
+  // TODO: Validate file types and sizes
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file: Express.Multer.File): Promise<string> {
     // Handle the uploaded file here
-    this.logger.log(`Env: ${process.env.DATABASE_URL}`);
-    this.logger.log(file, 'Uploaded File');
     await this.appService.handleUploadedFile(file);
     return `File ${file.originalname} uploaded successfully.`;
   }

@@ -51,7 +51,8 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Document: 'Document'
+  Document: 'Document',
+  Case: 'Case'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -79,6 +80,21 @@ export const DocumentScalarFieldEnum = {
 } as const
 
 export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
+
+
+export const CaseScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  decisionType: 'decisionType',
+  dateOfDecision: 'dateOfDecision',
+  office: 'office',
+  court: 'court',
+  caseNumber: 'caseNumber',
+  summary: 'summary',
+  createdAt: 'createdAt'
+} as const
+
+export type CaseScalarFieldEnum = (typeof CaseScalarFieldEnum)[keyof typeof CaseScalarFieldEnum]
 
 
 export const SortOrder = {
