@@ -7,6 +7,10 @@ Step one would be to create a nestjs application
 Step two write some code to clean and extract text from pdf and html
 Step three send it off to chatgpt (we will use openai) and get metadata (here we
 need to do some research)
+
+The above is now done
+
+TODO:
 Step four create fetch endpoint first by id, but later by something else
     - use AI for this querying possibly
 Step five add persistent storage
