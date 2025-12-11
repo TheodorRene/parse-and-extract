@@ -20,7 +20,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "start:full": "docker compose -f docker-compose.yml -f docker-compose.app.yml up --build",
     "start:db": "docker-compose up",
-    "start:studio": "npx prisma studio"
+    "start:studio": "npx prisma studio",
+    "migrate": "npx prisma migrate dev"
   },
   "dependencies": {
     "@mozilla/readability": "^0.6.0",

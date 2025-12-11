@@ -18,6 +18,14 @@ $ npm run start:full
 
 Make sure you have Docker Compose installed on your machine.
 
+## How to test/Swagger
+Swagger is included, so once the project is running, you can access it at:
+
+```
+http://localhost:3000/api
+```
+
+
 ## Project setup
 
 ```bash
@@ -51,8 +59,10 @@ $ npx prisma generate
 # this will generate all the required types for the new schema
 ```
 
+### Migration in production
 
-## Compile and run the project
+
+## Compile and run the project locally
 
 ```bash
 # development
