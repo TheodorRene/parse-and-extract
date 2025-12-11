@@ -2,18 +2,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import OpenAI from 'openai';
 import { zodTextFormat } from 'openai/helpers/zod.js';
-import { z } from 'zod';
-
-export const CaseSchema = z.object({
-  title: z.string(),
-  decisionType: z.string(),
-  dateOfDecision: z.string(),
-  office: z.string(),
-  court: z.string(),
-  caseNumber: z.string(),
-  summary: z.string(),
-});
-export type CaseMetadata = z.infer<typeof CaseSchema>;
+import { CaseMetadata, CaseSchema } from './dtos';
 
 @Injectable()
 export class OpenAIService {
@@ -34,7 +23,7 @@ export class OpenAIService {
         'Here is some more info about what each field means:\n\n' +
         'title: The title of the case\n' +
         'decisionType: The type of decision (e.g., judgment, order)\n' +
-        'dateOfDecision: The date when the decision was made\n' +
+        'dateOfDecision: The date when the decision was made. Format as YYYY-MM-DD\n' +
         'office: The office or chamber that issued the decision\n' +
         'court: The court where the case was heard\n' +
         'caseNumber: The official case number\n' +

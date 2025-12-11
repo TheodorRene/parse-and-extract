@@ -5,6 +5,19 @@
 database.
 [OpenAI](https://openai.com/) SDK is used to interact with OpenAI API.
 
+
+## Shortcut
+
+If you just want to run the whole project without going through the setup steps,
+you can run the following commands:
+```bash
+$ mv .env.example .env
+# update the OPENAI_API_KEY in .env file
+$ npm run start:full
+```
+
+Make sure you have Docker Compose installed on your machine.
+
 ## Project setup
 
 ```bash
@@ -14,7 +27,7 @@ $ npm install
 ## Database setup
 
 ```bash
-docker-compose up -d
+npm run start:db
 ```
 
 This will start a PostgreSQL database in docker.
@@ -50,14 +63,4 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
-```
-
-## Run tests
-
-Tests are not covered in this project to save time. But you can personally test
-the endpoints using
-
-```bash
-$ npm run upload-file <path_to_file>
-$ npm run get-file <key=value&key2=value2>
 ```

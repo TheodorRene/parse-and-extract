@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { CaseMetadata, OpenAIService } from './openai.service';
+import { OpenAIService } from './openai.service';
 import { readHtmlFromBuffer, readPdfFromBuffer } from './utils/parsefile';
 import { Optional } from './app.controller';
+import { CaseMetadata } from './dtos';
 
 @Injectable()
 export class AppService {
@@ -11,13 +12,6 @@ export class AppService {
     private openai: OpenAIService,
   ) {}
   private readonly logger = new Logger(AppService.name);
-
-  async getText(): Promise<string> {
-    const document = await this.prisma.document.findUnique({
-      where: { id: 1 },
-    });
-    return document?.content || 'No document found';
-  }
 
   private async parse(buffer: Buffer, mimetype: string): Promise<string> {
     if (mimetype === 'application/pdf') {
