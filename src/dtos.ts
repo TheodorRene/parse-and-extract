@@ -35,3 +35,10 @@ export class CaseMetadataQueryDto {
   @ApiPropertyOptional()
   summary?: string;
 }
+
+export type CaseDTO = {
+  caseNumber: string;
+  documentId: number;
+  title: string;
+  summary: string;
+};

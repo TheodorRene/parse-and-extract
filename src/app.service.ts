@@ -3,7 +3,7 @@ import { PrismaService } from './prisma.service';
 import { OpenAIService } from './openai.service';
 import { extractTextFromHtml, extractTextFromPdf } from './utils/parsefile';
 import { Optional } from './app.controller';
-import { CaseMetadata } from './dtos';
+import { CaseDTO, CaseMetadata } from './dtos';
 
 @Injectable()
 export class AppService {
@@ -22,17 +22,17 @@ export class AppService {
       throw new Error(`Unsupported file type: ${mimetype}`);
     }
   }
-  async getDocuments(filter: Optional<CaseMetadata>): Promise<string[]> {
+  async getDocuments(filter: Optional<CaseMetadata>): Promise<CaseMetadata[]> {
     this.logger.log(
       'Fetching documents with filter parameters: ' + JSON.stringify(filter),
     );
-    const x = await this.prisma.case.findMany({
+    const cases = await this.prisma.case.findMany({
       where: { ...filter },
     });
-    if (x.length === 0) {
+    if (cases.length === 0) {
       this.logger.log('No documents found matching filter');
     }
-    return x.map((c) => String(c.documentId));
+    return cases;
   }
 
   async handleUploadedFile(file: Express.Multer.File): Promise<void> {

@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes } from '@nestjs/swagger';
-import { CaseMetadataQueryDto } from './dtos';
+import { ApiBody, ApiConsumes, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { CaseDTO, CaseMetadata, CaseMetadataQueryDto } from './dtos';
 
 @Controller()
 export class AppController {
@@ -41,10 +41,20 @@ export class AppController {
     return `File ${file.originalname} uploaded successfully.`;
   }
 
-  //lets create a controller that fetches a specific document based on case metadata
-  //lets allow any query parameters to be passed in and use them to filter the documents
   @Get('documents')
-  async getDocuments(@Query() query: CaseMetadataQueryDto): Promise<string[]> {
+  @ApiOperation({
+    summary: 'Fetch cases based on query parameters',
+    description:
+      'Returns a list of legal cases extracted from uploaded documents. Be very precise',
+  })
+  @ApiResponse({
+    status: 200,
+    description:
+      'List of cases matching the query parameters provided in the request.',
+  })
+  async getDocuments(
+    @Query() query: CaseMetadataQueryDto,
+  ): Promise<CaseMetadata[]> {
     this.logger.log(
       'Fetching documents with query parameters: ' + JSON.stringify(query),
     );
