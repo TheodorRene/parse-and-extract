@@ -1,9 +1,14 @@
+# Parse and extract
+
+Test out modern models document extraction capabilities
+
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-[Prisma](https://www.prisma.io/) is used as ORM to interact with a PostgreSQL
-database.
-[OpenAI](https://openai.com/) SDK is used to interact with OpenAI API.
+- [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+- [Prisma](https://www.prisma.io/) is used as ORM to interact with a PostgreSQL database.
+
+- [OpenAI](https://openai.com/) SDK is used to interact with OpenAI API.
 
 ## Shortcut
 
