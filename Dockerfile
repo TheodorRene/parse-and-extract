@@ -23,5 +23,5 @@ EXPOSE 3000
 
 # Command to run the application
 # Lets do prisma migrate deploy before starting the app
-
+# This is done as an convenience for deployment, in production you would typically run migrations separately
 CMD ["sh", "-c", "npx prisma migrate deploy && node dist/src/main.js"]

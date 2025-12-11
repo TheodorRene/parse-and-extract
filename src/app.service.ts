@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 import { OpenAIService } from './openai.service';
-import { readHtmlFromBuffer, readPdfFromBuffer } from './utils/parsefile';
+import { extractTextFromHtml, extractTextFromPdf } from './utils/parsefile';
 import { Optional } from './app.controller';
 import { CaseMetadata } from './dtos';
 
@@ -15,9 +15,9 @@ export class AppService {
 
   private async parse(buffer: Buffer, mimetype: string): Promise<string> {
     if (mimetype === 'application/pdf') {
-      return await readPdfFromBuffer(buffer);
+      return await extractTextFromPdf(buffer);
     } else if (mimetype === 'text/html') {
-      return readHtmlFromBuffer(buffer);
+      return extractTextFromHtml(buffer);
     } else {
       throw new Error(`Unsupported file type: ${mimetype}`);
     }

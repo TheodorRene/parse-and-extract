@@ -17,11 +17,6 @@ export class AppController {
   private readonly logger = new Logger(AppController.name);
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return 'Hello World!';
-  }
-
   // TODO: Error handling for file uploads
   // TODO: Validate file types and sizes
   @Post('upload')
